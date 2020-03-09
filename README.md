@@ -1,6 +1,6 @@
 # flutter_zomato
 
-A new Flutter project.
+Flutter playground project with Zomato API.
 
 ## Getting Started
 
