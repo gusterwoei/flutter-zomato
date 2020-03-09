@@ -36,7 +36,6 @@ import 'package:flutter_zomato/models/restaurant.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
-
 class ZomatoClient {
   final _apiKey = 'baa4aceb57c2a151a97c6fad40b96b14';
   final _host = 'developers.zomato.com';
@@ -61,6 +60,9 @@ class ZomatoClient {
       'count': '10'
     });
 
+    if (results['restaurants'] == null) {
+      return [];
+    }
     final restaurants = results['restaurants']
         .map<Restaurant>((json) => Restaurant.fromJson(json['restaurant']))
         .toList(growable: false);
@@ -72,6 +74,9 @@ class ZomatoClient {
       {@required String path, Map<String, String> parameters}) async {
     final uri = Uri.https(_host, '$_contextRoot/$path', parameters);
     final results = await http.get(uri, headers: _headers);
+    if (results.statusCode != 200) {
+      return {};
+    }
     final jsonObject = json.decode(results.body);
     return jsonObject;
   }

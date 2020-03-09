@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_zomato/bloc/bloc-provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_zomato/bloc/bloc-provider.dart';
 import 'package:flutter_zomato/bloc/location-bloc.dart';
 import 'package:flutter_zomato/models/location.dart';
 import 'package:flutter_zomato/ui/location-screen.dart';
@@ -10,17 +11,26 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<Location>(
-      stream: BlocProvider.of<LocationBloc>(context).locationStream,
-      builder: (context, snapshot) {
-        final location = snapshot.data;
+    return BlocBuilder<LocationBloc, Location>(
+      builder: (context, state) {
+        final location = state;
         
         if (location == null) return LocationScreen();
-
-        // Navigator.push(context, MaterialPageRoute(builder: (context) => RestaurantScreen(location: location)));
 
         return RestaurantScreen(location: location);
       },
     );
+    // return StreamBuilder<Location>(
+    //   stream: BlocProvider.of<LocationBloc>(context).locationStream,
+    //   builder: (context, snapshot) {
+    //     final location = snapshot.data;
+        
+    //     if (location == null) return LocationScreen();
+
+    //     // Navigator.push(context, MaterialPageRoute(builder: (context) => RestaurantScreen(location: location)));
+
+    //     return RestaurantScreen(location: location);
+    //   },
+    // );
   }
 }

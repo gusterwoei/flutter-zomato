@@ -2,17 +2,17 @@
 import 'package:flutter/material.dart';
 import 'bloc.dart';
 
-class BlocProvider<T extends Bloc> extends StatefulWidget {
+class BlocProviderx<T extends Bloc> extends StatefulWidget {
   final Widget child;
   final T bloc;
 
-  const BlocProvider({Key key, @required this.bloc, @required this.child})
+  const BlocProviderx({Key key, @required this.bloc, @required this.child})
       : super(key: key);
 
   // 2
   static T of<T extends Bloc>(BuildContext context) {
-    final type = _providerType<BlocProvider<T>>();
-    final BlocProvider<T> provider = context.ancestorWidgetOfExactType(type);
+    final type = _providerType<BlocProviderx<T>>();
+    final BlocProviderx<T> provider = context.ancestorWidgetOfExactType(type);
     return provider.bloc;
   }
 
@@ -20,10 +20,10 @@ class BlocProvider<T extends Bloc> extends StatefulWidget {
   static Type _providerType<T>() => T;
 
   @override
-  State createState() => _BlocProviderState();
+  State createState() => _BlocProviderxState();
 }
 
-class _BlocProviderState extends State<BlocProvider> {
+class _BlocProviderxState extends State<BlocProviderx> {
   // 4
   @override
   Widget build(BuildContext context) => widget.child;
