@@ -6,20 +6,15 @@ import 'package:flutter_zomato/services/zomato-client.dart';
 
 class LocationQueryBloc extends Bloc<List<Location>, List<Location>> {
   final _client = ZomatoClient();
-  // final _controller = StreamController<List<Location>>();
-
-  // Stream<List<Location>> get locationStream => _controller.stream;
 
   void submitQuery(String query) async {
+    if (query.trim() == "") {
+      this.add([]);
+      return;
+    }
     final results = await _client.fetchLocations(query);
     this.add(results);
-    // _controller.sink.add(results);
   }
-
-  // @override
-  // void dispose() {
-  //   _controller.close();
-  // }
 
   @override
   List<Location> get initialState => List<Location>();

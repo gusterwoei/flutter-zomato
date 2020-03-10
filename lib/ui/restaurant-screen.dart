@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_zomato/bloc/bloc-provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_zomato/bloc/bloc-provider.dart';
 import 'package:flutter_zomato/bloc/restaurant-bloc.dart';
 import 'package:flutter_zomato/models/location.dart';
 import 'package:flutter_zomato/models/restaurant.dart';
@@ -21,8 +22,8 @@ class RestaurantScreen extends StatelessWidget {
   _buildSearch(BuildContext context) {
     final bloc = RestaurantBloc(location);
 
-    return BlocProvider<RestaurantBloc>(
-      bloc: bloc,
+    return BlocProvider(
+      create: (context) => bloc,
       child: Column(
         children: <Widget>[
           Padding(
@@ -43,10 +44,10 @@ class RestaurantScreen extends StatelessWidget {
   }
 
   Widget _buildStreamBuilder(RestaurantBloc bloc) {
-    return StreamBuilder(
-      stream: bloc.stream,
-      builder: (context, snapshot) {
-        final results = snapshot.data;
+    return BlocBuilder(
+      bloc: bloc,
+      builder: (context, state) {
+        final results = state;
 
         if (results == null) {
           return Center(child: Text('Enter a restaurant name or cuisine type'));

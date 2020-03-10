@@ -12,6 +12,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LocationBloc, Location>(
+      bloc: LocationBloc(),
       builder: (context, state) {
         final location = state;
         
@@ -20,17 +21,5 @@ class MainScreen extends StatelessWidget {
         return RestaurantScreen(location: location);
       },
     );
-    // return StreamBuilder<Location>(
-    //   stream: BlocProvider.of<LocationBloc>(context).locationStream,
-    //   builder: (context, snapshot) {
-    //     final location = snapshot.data;
-        
-    //     if (location == null) return LocationScreen();
-
-    //     // Navigator.push(context, MaterialPageRoute(builder: (context) => RestaurantScreen(location: location)));
-
-    //     return RestaurantScreen(location: location);
-    //   },
-    // );
   }
 }
